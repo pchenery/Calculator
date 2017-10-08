@@ -10,7 +10,14 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Calculator");
+            Console.WriteLine("Enter the first number: ");
+            string myFirstNumber = Console.ReadLine();
+
+            Console.WriteLine("Enter the second number: ");
+            string mySecondNumber = Console.ReadLine();
+
+            int myMultiple = int.Parse(myFirstNumber) * int.Parse(mySecondNumber);
+            Console.WriteLine($"Multiple is: {myMultiple}");
             Console.ReadLine();
         }
     }

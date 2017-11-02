@@ -10,46 +10,87 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Calculator!");
-            Console.WriteLine("========================== ");
+            PrintWelcomeMessage();
+
+            while (true)
+            {
+                PerformOneCalculation();
+            }
+        }
+
+        private static void PrintWelcomeMessage()
+        {
+            Console.WriteLine("Welcome to the Calculator");
+            Console.WriteLine("=========================");
+        }
+
+        private static void PerformOneCalculation()
+        {
+            string Operator = GetOperator();
+            int[] numbers = GetNumberArray(Operator);
+            float answer = GetAnswer(Operator, numbers);
+
+            Console.WriteLine($"Result is: {answer}");
+            Console.ReadLine();
+
+        }
+
+        private static string GetOperator()
+        {
             Console.WriteLine("Please enter the Operator: ");
             string Operator = Console.ReadLine();
+            return Operator;
+        }
 
-            Console.WriteLine("How many numbers do you want to " + Operator + "? ");
-            int totalNumber = int.Parse(Console.ReadLine());
+        private static int[] GetNumberArray(string Operator)
+        {
+            int totalNumber = GetNumber("How many numbers do you want to " + Operator + "? ");
             int[] inputs = new int[totalNumber];
 
             for (int i = 0; i < totalNumber; i++)
             {
-
-                Console.WriteLine("Please enter Number " + (i + 1));
-                inputs[i] = int.Parse(Console.ReadLine());
+                inputs[i] = GetNumber("Please enter Number ");
             }
 
-            float output = inputs[0];
+            return inputs;
+        }
 
-            for (int index = 1; index < totalNumber; index++)
+        private static int GetNumber(string message)
+        {
+            int number;
+
+            do
+            {
+                Console.WriteLine(message);
+            } while (!int.TryParse(Console.ReadLine(), out number));
+
+            return number;
+        }
+
+        private static float GetAnswer(string Operator, int[] numbers)
+        {
+            float output = numbers[0];
+
+            for (int index = 1; index < numbers.Length; index++)
             {
                 if (Operator == "*")
                 {
-                    output = output * inputs[index];
+                    output = output * numbers[index];
                 }
                 else if (Operator == "/")
                 {
-                    output = output / inputs[index];
+                    output = output / numbers[index];
                 }
                 else if (Operator == "+")
                 {
-                    output = output + inputs[index];
+                    output = output + numbers[index];
                 }
                 else if (Operator == "-")
                 {
-                    output = output - inputs[index];
+                    output = output - numbers[index];
                 }
             }
-
-            Console.WriteLine($"Result is: {output}");
-            Console.ReadLine();
+            return output;
         }
     }
 }

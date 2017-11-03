@@ -58,7 +58,7 @@ namespace Calculator
 
             for (int i = 0; i < totalNumber; i++)
             {
-                inputs[i] = GetNumber("Please enter Number ");
+                inputs[i] = GetNumber(string.Format("Please enter number {0}: ", i + 1));
             }
 
             return inputs;

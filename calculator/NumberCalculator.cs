@@ -8,12 +8,16 @@ namespace Calculator
 {
     class NumberCalculator
     {
+        private Log log = new Log();
+
         public void PerformOneCalculation()
         {
             string Operator = Prompts.GetOperator();
             int[] numbers = Prompts.GetNumberArray(string.Format("How many numbers do you want {0}. ", Operator));
             float answer = GetAnswer(Operator, numbers);
 
+            log.ClearLog();
+            log.AddToLog(string.Join(Operator, numbers)+ " = "+answer);
             Console.WriteLine($"Result is: {answer}");
             Console.ReadLine();
         }

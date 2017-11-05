@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    class DateCalculator
+    class DateCalculator : ICalculator
     {
-        public void PerformDateCalculation()
+        public void PerformCalculation()
         {
             DateTime enterDate = Prompts.GetDate("Please Enter a Date");
             int numDays = Prompts.GetDaysToAdd("Please enter the number of days to add ");

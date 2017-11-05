@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
-    class NumberCalculator
+    class NumberCalculator : ICalculator
     {
         private Log log = new Log();
 
-        public void PerformOneCalculation()
+        public void PerformCalculation()
         {
             string Operator = Prompts.GetOperator();
             List<int> numbers = Prompts.GetNumberArray(string.Format("Please enter the numbers to {0}. ", Operator));

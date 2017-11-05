@@ -13,7 +13,7 @@ namespace Calculator
         public void PerformOneCalculation()
         {
             string Operator = Prompts.GetOperator();
-            int[] numbers = Prompts.GetNumberArray(string.Format("How many numbers do you want {0}. ", Operator));
+            List<int> numbers = Prompts.GetNumberArray(string.Format("Please enter the numbers to {0}. ", Operator));
             float answer = GetAnswer(Operator, numbers);
 
             log.ClearLog();
@@ -22,30 +22,25 @@ namespace Calculator
             Console.ReadLine();
         }
 
-        private float GetAnswer(string Operator, int[] numbers)
+        private float GetAnswer(string Operator, List<int> numbers)
         {
-            float output = numbers[0];
-
-            for (int index = 1; index < numbers.Length; index++)
+            if (Operator == "*")
             {
-                if (Operator == "*")
-                {
-                    output = output * numbers[index];
-                }
-                else if (Operator == "/")
-                {
-                    output = output / numbers[index];
-                }
-                else if (Operator == "+")
-                {
-                    output = output + numbers[index];
-                }
-                else if (Operator == "-")
-                {
-                    output = output - numbers[index];
-                }
+                return numbers.Aggregate(func: (result, item) => result * item);
             }
-            return output;
+            else if (Operator == "/")
+            {
+                return numbers.Aggregate(func: (result, item) => result / item);
+            }
+            else if (Operator == "+")
+            {
+                return numbers.Sum();
+            }
+            else if (Operator == "-")
+            {
+                return numbers.Aggregate(func: (result, item) => result - item);
+            }
+            return -1;
         }
     }
 }

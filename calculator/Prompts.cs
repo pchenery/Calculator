@@ -10,14 +10,35 @@ namespace Calculator
     {
         public static int GetNumber(string message)
         {
-            int number;
-
-            do
+            while (true)
             {
-                Console.WriteLine(message);
-            } while (!int.TryParse(Console.ReadLine(), out number));
+                int? isNumber = GetOptionalNumber(message);
 
-            return number;
+                if (isNumber.HasValue)
+                {
+                    return isNumber.Value;
+                }
+            }
+        }
+
+        public static int? GetOptionalNumber(string message)
+        {
+            while (true)
+            {
+                Console.Write(message);
+                string input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    return null;
+                }
+
+                int number;
+                if (int.TryParse(input, out number))
+                {
+                    return number;
+                }
+            }
         }
 
         public static string GetOperator()
@@ -51,14 +72,23 @@ namespace Calculator
             return number;
         }
 
-        public static int[] GetNumberArray(string Operator)
+        public static List<int> GetNumberArray(string message)
         {
-            int totalNumber = GetNumber(Operator);
-            int[] inputs = new int[totalNumber];
+            Console.WriteLine(message);
+            List<int> inputs = new List<int>();
 
-            for (int i = 0; i < totalNumber; i++)
+            while (true)
             {
-                inputs[i] = GetNumber(string.Format("Please enter number {0}: ", i + 1));
+                int? number = GetOptionalNumber("Please enter the next number: ");
+
+                if (number.HasValue)
+                {
+                    inputs.Add(number.Value);
+                }
+                else
+                {
+                    break;
+                }
             }
 
             return inputs;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,23 +25,23 @@ namespace Calculator
 
         private float GetAnswer(string Operator, List<int> numbers)
         {
-            if (Operator == "*")
+            switch (Operator)
             {
-                return numbers.Aggregate(func: (result, item) => result * item);
+                case "*":
+                    return numbers.Aggregate(func: (result, item) => result * item);
+
+                case "/":
+                    return numbers.Aggregate(func: (result, item) => result / item);
+
+                case "+":
+                    return numbers.Sum();
+
+                case "-":
+                    return numbers.Aggregate(func: (result, item) => result - item);
+
+            default:
+                throw new InvalidOperationException(Operator);
             }
-            else if (Operator == "/")
-            {
-                return numbers.Aggregate(func: (result, item) => result / item);
-            }
-            else if (Operator == "+")
-            {
-                return numbers.Sum();
-            }
-            else if (Operator == "-")
-            {
-                return numbers.Aggregate(func: (result, item) => result - item);
-            }
-            return -1;
         }
     }
 }
